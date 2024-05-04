@@ -11,7 +11,7 @@
 #修改golang版本
 sed -i '10s/1.19/1.22/g' package/feeds/packages/golang/Makefile
 sed -i '11s/13/2/g' package/feeds/packages/golang/Makefile
-
+sed -i '23s/ccf36b53fb0024a017353c3ddb22c1f00bc7a8073c6aac79042da24ee34434d3/374ea82b289ec738e968267cac59c7d5ff180f9492250254784b2044e90df5a9/g' package/feeds/packages/golang/Makefile
 
 #修改uhttpd配置文件，启用nginx
 # sed -i "/.*uhttpd.*/d" .config
