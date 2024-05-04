@@ -8,6 +8,11 @@
 #===============================================
 
 
+#修改golang版本
+sed -i '10s/1.19/1.22/g' package/feeds/packages/golang/Makefile
+sed -i '11s/13/2/g' package/feeds/packages/golang/Makefile
+
+
 #修改uhttpd配置文件，启用nginx
 # sed -i "/.*uhttpd.*/d" .config
 # sed -i '/.*\/etc\/init.d.*/d' package/network/services/uhttpd/Makefile

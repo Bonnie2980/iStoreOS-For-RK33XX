@@ -54,6 +54,12 @@ jobs:
         echo "------------------------------- 磁盘详情 -------------------------------\n"
         df -Th
 
+    - uses: actions/setup-go@v5
+      with:
+        go-version: '1.22.2'
+        check-latest: true
+        cache-dependency-path: '**/go.sum'
+        
     - name: 初始化编译环境
       env:
         DEBIAN_FRONTEND: noninteractive
