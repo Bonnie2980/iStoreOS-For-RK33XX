@@ -8,13 +8,13 @@
 #===============================================
 
 
-#修改golang版本
-#sed -i '10s/1.19/1.22/g' package/feeds/packages/golang/Makefile
-#sed -i '11s/13/2/g' package/feeds/packages/golang/Makefile
-#sed -i '23s/ccf36b53fb0024a017353c3ddb22c1f00bc7a8073c6aac79042da24ee34434d3/374ea82b289ec738e968267cac59c7d5ff180f9492250254784b2044e90df5a9/g' package/feeds/packages/golang/Makefile
-#cp -f $GITHUB_WORKSPACE/patches/001-cmd-link-use-gold-on-ARM-ARM64-only-if-gold-is-available.patch feeds/packages/lang/golang/golang/patches/001-cmd-link-use-gold-on-ARM-ARM64-only-if-gold-is-available.patch
+#替换golang版本
 rm -rf feeds/packages/lang/golang
 git clone https://github.com/sbwml/packages_lang_golang -b 22.x feeds/packages/lang/golang
+
+#更新xray-core版本
+sed -i '4s/1.8.3/1.8.11/g' feeds/packages/net/xray-core/Makefile
+sed -i '9s/bdfa65c15cd25f931745d9c70c753503db5d119ff11960ca7b3a2e19c4b0a8d1/d99ee6008c508abbad6bbb242d058b22efb50fb35867d15447a2b4602ab4b283/g' feeds/packages/net/xray-core/Makefile
 
 #修改uhttpd配置文件，启用nginx
 # sed -i "/.*uhttpd.*/d" .config
