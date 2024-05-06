@@ -8,7 +8,7 @@ include $(INCLUDE_DIR)/kernel.mk
 PKG_VERSION:=2021.07
 PKG_RELEASE:=$(AUTORELEASE)
 
-PKG_HASH:=b2a7421cc7baba6249b0eac725808d102763a53854671c9802c823a3e41b4b69
+PKG_HASH:=c1db8c3f364b8f6219aada8cc8a455a0c514810b8d71045fb91a5609f2025e9a
 
 PKG_MAINTAINER:=Tobias Maedel <openwrt@tbspace.de>
 
@@ -122,7 +122,6 @@ define U-Boot/xiaobao-nas-v1-rk3399
   DEPENDS:=+PACKAGE_u-boot-xiaobao-nas-v1-rk3399:arm-trusted-firmware-rockchip
   PKG_BUILD_DEPENDS:=arm-trusted-firmware-rockchip
   ATF:=rk3399_bl31.elf
-  USE_RKBIN:=1
 endef
 
 UBOOT_TARGETS := \
