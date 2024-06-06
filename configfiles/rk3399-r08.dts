@@ -2,7 +2,7 @@
 /dts-v1/;
 #include <dt-bindings/input/linux-event-codes.h>
 #include <dt-bindings/pwm/pwm.h>
-#include "dt-bindings/input/input.h"
+#include <dt-bindings/input/input.h>
 #include <dt-bindings/interrupt-controller/irq.h>
 #include "rk3399.dtsi"
 #include "rk3399-opp.dtsi"
@@ -19,15 +19,19 @@
 	};
 
 	chosen {
+		bootargs = "earlycon=uart8250,mmio32,0xff1a0000 swiotlb=1 coherent_pool=1m";
 		stdout-path = "serial2:1500000n8";
 	};
 
-	debug: debug@fd904000 {
-		compatible = "rockchip,debug";
-		reg = <0x0 0xfd904000 0x0 0x1000>,
-			<0x0 0xfd905000 0x0 0x1000>,
-			<0x0 0xfd906000 0x0 0x1000>,
-			<0x0 0xfd907000 0x0 0x1000>;
+	fiq_debugger: fiq-debugger {
+		compatible = "rockchip,fiq-debugger";
+		rockchip,serial-id = <2>;
+		rockchip,wake-irq = <0>;
+		rockchip,irq-mode-enable = <0>;  /* If enable uart uses irq instead of fiq */
+		rockchip,baudrate = <1500000>;  /* Only 115200 and 1500000 */
+		pinctrl-names = "default";
+		pinctrl-0 = <&uart2c_xfer>;
+		interrupts = <GIC_SPI 150 IRQ_TYPE_LEVEL_HIGH 0>;
 	};
 
 	clkin_gmac: external-gmac-clock {
@@ -536,8 +540,8 @@
 
 // HDMI sound
 &i2s2 {
-	#sound-dai-cells = <0>;
 	status = "okay";
+	#sound-dai-cells = <0>;
 };
 
 &io_domains {
@@ -628,7 +632,7 @@
 
 	gmac {
 		rgmii_sleep_pins: rgmii-sleep-pins {
-			rockchip,pins =<3 RK_PB7 RK_FUNC_GPIO &pcfg_output_low>; // bsp
+			rockchip,pins = <3 RK_PB7 RK_FUNC_GPIO &pcfg_output_low>; // bsp
 		};
 	};
 
@@ -699,7 +703,6 @@
 	mmc-hs400-enhanced-strobe;
 	supports-emmc;
 	non-removable;
-	status = "okay";
 };
 
 &tcphy0 {
@@ -742,7 +745,7 @@
 };
 
 &uart0 {
-	status = "disabled";
+	status = "okay";
 	pinctrl-names = "default";
 	pinctrl-0 = <&uart0_xfer &uart0_cts &uart0_rts>;
 
@@ -765,7 +768,7 @@
 };
 
 &uart2 {
-	status = "disabled";
+	status = "okay";
 };
 
 &usb_host0_ehci {

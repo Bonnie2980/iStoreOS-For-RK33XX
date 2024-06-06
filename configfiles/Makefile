@@ -8,7 +8,7 @@ include $(INCLUDE_DIR)/kernel.mk
 PKG_VERSION:=2021.07
 PKG_RELEASE:=$(AUTORELEASE)
 
-PKG_HASH:=5cb97de15c90002831ed964b817ca56500248a9285b4715680ac7e5e3fe37bed
+PKG_HASH:=614ad73e3199eb59b61d5d958a76fa15e043a89b41f9bd5d6b8707ce5a5b144d
 
 PKG_MAINTAINER:=Tobias Maedel <openwrt@tbspace.de>
 
@@ -114,6 +114,16 @@ define U-Boot/r08-rk3399
   ATF:=rk3399_bl31.elf
 endef
 
+define U-Boot/tpm312-rk3399
+  BUILD_SUBTARGET:=armv8
+  NAME:=RK3399 TPM312
+  BUILD_DEVICES:= \
+    rk3399_tpm312
+  DEPENDS:=+PACKAGE_u-boot-tpm312-rk3399:arm-trusted-firmware-rockchip
+  PKG_BUILD_DEPENDS:=arm-trusted-firmware-rockchip
+  ATF:=rk3399_bl31.elf
+endef
+
 define U-Boot/xiaobao-nas-v1-rk3399
   BUILD_SUBTARGET:=armv8
   NAME:=Codinge Xiaobao NAS-I
@@ -132,6 +142,7 @@ UBOOT_TARGETS := \
   rockpro64-rk3399 \
   nanopi-r2s-rk3328 \
   r08-rk3399 \
+  tpm312-rk3399 \
   xiaobao-nas-v1-rk3399
 
 UBOOT_CONFIGURE_VARS += USE_PRIVATE_LIBGCC=yes
