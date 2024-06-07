@@ -3,6 +3,11 @@ name: Build iStore OS
 on:
   repository_dispatch:
   workflow_dispatch:
+    inputs:
+      enablebypass:
+        type: boolean
+        description: '是否默认启用旁路由模式'
+        default: false
   #schedule:
   # - cron: 0 16 * * *
 
@@ -120,7 +125,11 @@ jobs:
         [ -e $CONFIG_FILE_PATH ] && mv $CONFIG_FILE_PATH openwrt/$CONFIG_FILE
         chmod +x $DIY_P2_SH
         cd openwrt
-        $GITHUB_WORKSPACE/$DIY_P2_SH
+        if [[ "${{ github.event.inputs.enablebypass }}" == "true" ]]; then
+          $GITHUB_WORKSPACE/$DIY_P2_SH ${{ github.event.inputs.enablebypass }}
+        else
+          $GITHUB_WORKSPACE/$DIY_P2_SH
+        fi
 
     - name: Extract OpenClash
       run: |
