@@ -13,7 +13,7 @@ cp -f $GITHUB_WORKSPACE/configfiles/ubus_Makefile package/system/ubus/Makefile
 
 
 # 近期istoreos网站文件服务器不稳定，临时增加一个自定义下载网址
-sed -i "s/push @mirrors, 'https:\/\/mirror2.openwrt.org\/sources';/&\\npush @mirrors, 'https:\/\/github.com\/xiaomeng9597\/files\/releases\/download\/iStoreosFile';/g" scripts/download.pl
+# sed -i "s/push @mirrors, 'https:\/\/mirror2.openwrt.org\/sources';/&\\npush @mirrors, 'https:\/\/github.com\/xiaomeng9597\/files\/releases\/download\/iStoreosFile';/g" scripts/download.pl
 
 #替换golang版本
 rm -rf feeds/packages/lang/golang
@@ -97,7 +97,7 @@ sed -i "s/rk3399,tpm312)/rk3399,tpm312|\\\\\n	codinge,xiaobao-nas-v1)/g" target/
 
 
 cp -f $GITHUB_WORKSPACE/configfiles/Makefile package/boot/uboot-rockchip/Makefile
-sed -i "s/.*PKG_HASH:=.*/PKG_HASH:=614ad73e3199eb59b61d5d958a76fa15e043a89b41f9bd5d6b8707ce5a5b144d/g" package/boot/uboot-rockchip/Makefile
+sed -i "s/.*PKG_HASH:=.*/PKG_HASH:=d9c1703a8c806b0034a01c48b5987b1957c1a6a2c3812e46d91fe1bd9c078573/g" package/boot/uboot-rockchip/Makefile
 cp -f $GITHUB_WORKSPACE/configfiles/u-boot.mk include/u-boot.mk
 
 
@@ -127,7 +127,9 @@ cp -f $GITHUB_WORKSPACE/configfiles/rk3399-r08.dts package/boot/uboot-rockchip/s
 cp -f $GITHUB_WORKSPACE/configfiles/rk3399-tpm312.dts package/boot/uboot-rockchip/src/arch/arm/dts/rk3399-tpm312.dts
 cp -f $GITHUB_WORKSPACE/configfiles/rk3399-xiaobao-nas-v1.dts package/boot/uboot-rockchip/src/arch/arm/dts/rk3399-xiaobao-nas-v1.dts
 
-
+#开启无线功能
+cp -f $GITHUB_WORKSPACE/configfiles/opwifi package/base-files/files/etc/init.d/opwifi
+chmod 755 package/base-files/files/etc/init.d/opwifi
 
 #集成CPU性能跑分脚本
 cp -a $GITHUB_WORKSPACE/configfiles/coremark/* package/base-files/files/sbin/
