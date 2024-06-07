@@ -98,7 +98,7 @@ fi
 
 
 cp -f $GITHUB_WORKSPACE/configfiles/Makefile package/boot/uboot-rockchip/Makefile
-sed -i "s/.*PKG_HASH:=.*/PKG_HASH:=d9c1703a8c806b0034a01c48b5987b1957c1a6a2c3812e46d91fe1bd9c078573/g" package/boot/uboot-rockchip/Makefile
+sed -i "s/.*PKG_HASH:=.*/PKG_HASH:=47201573f99247fd34a77c635a2bbfc39f36d3afee2014641129abc4541f7673/g" package/boot/uboot-rockchip/Makefile
 cp -f $GITHUB_WORKSPACE/configfiles/u-boot.mk include/u-boot.mk
 
 
