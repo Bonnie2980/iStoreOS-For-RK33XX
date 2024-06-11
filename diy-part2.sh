@@ -42,7 +42,6 @@ cp -a $GITHUB_WORKSPACE/configfiles/etc/* package/base-files/files/etc/
 # 移植以下机型
 # RK3399 R08
 # RK3399 TPM312
-# XIAOBAO-NAS-V1
 
 echo -e "\\ndefine Device/rk3399_r08
   DEVICE_VENDOR := RK3399
@@ -68,25 +67,12 @@ endef
 TARGET_DEVICES += rk3399_tpm312" >> target/linux/rockchip/image/armv8.mk
 
 
-echo -e "\\ndefine Device/codinge_xiaobao-nas-v1
-  DEVICE_VENDOR := Codinge
-  DEVICE_MODEL := XiaoBao NAS-I
-  SOC := rk3399
-  SUPPORTED_DEVICES := codinge,xiaobao-nas-v1
-  DEVICE_DTS := rk3399-xiaobao-nas-v1
-  UBOOT_DEVICE_NAME := xiaobao-nas-v1-rk3399
-  IMAGE/sysupgrade.img.gz := boot-common | boot-script | pine64-img | gzip | append-metadata
-  DEVICE_PACKAGES := kmod-ata-ahci
-endef
-TARGET_DEVICES += codinge_xiaobao-nas-v1" >> target/linux/rockchip/image/armv8.mk
-
-
 
 
 
 cp -f $GITHUB_WORKSPACE/configfiles/r08-rk3399_defconfig package/boot/uboot-rockchip/src/configs/r08-rk3399_defconfig
 cp -f $GITHUB_WORKSPACE/configfiles/tpm312-rk3399_defconfig package/boot/uboot-rockchip/src/configs/tpm312-rk3399_defconfig
-cp -f $GITHUB_WORKSPACE/configfiles/xiaobao-nas-v1-rk3399_defconfig package/boot/uboot-rockchip/src/configs/xiaobao-nas-v1-rk3399_defconfig
+
 
 
 if [ -n "$enable_bypass" ]; then
@@ -103,6 +89,8 @@ cp -f $GITHUB_WORKSPACE/configfiles/u-boot.mk include/u-boot.mk
 
 
 
+
+
 # 创建rk3399 dts设备树文件夹
 mkdir -p target/linux/rockchip/dts/rk3399
 
@@ -110,21 +98,18 @@ cp -f $GITHUB_WORKSPACE/configfiles/rk3399.dtsi target/linux/rockchip/dts/rk3399
 cp -f $GITHUB_WORKSPACE/configfiles/rk3399-opp.dtsi target/linux/rockchip/dts/rk3399/rk3399-opp.dtsi
 cp -f $GITHUB_WORKSPACE/configfiles/rk3399-r08.dts target/linux/rockchip/dts/rk3399/rk3399-r08.dts
 cp -f $GITHUB_WORKSPACE/configfiles/rk3399-tpm312.dts target/linux/rockchip/dts/rk3399/rk3399-tpm312.dts
-cp -f $GITHUB_WORKSPACE/configfiles/rk3399-xiaobao-nas-v1.dts target/linux/rockchip/dts/rk3399/rk3399-xiaobao-nas-v1.dts
 
 
 cp -f $GITHUB_WORKSPACE/configfiles/rk3399.dtsi target/linux/rockchip/armv8/files/arch/arm64/boot/dts/rockchip/rk3399.dtsi
 cp -f $GITHUB_WORKSPACE/configfiles/rk3399-opp.dtsi target/linux/rockchip/armv8/files/arch/arm64/boot/dts/rockchip/rk3399-opp.dtsi
 cp -f $GITHUB_WORKSPACE/configfiles/rk3399-r08.dts target/linux/rockchip/armv8/files/arch/arm64/boot/dts/rockchip/rk3399-r08.dts
 cp -f $GITHUB_WORKSPACE/configfiles/rk3399-tpm312.dts target/linux/rockchip/armv8/files/arch/arm64/boot/dts/rockchip/rk3399-tpm312.dts
-cp -f $GITHUB_WORKSPACE/configfiles/rk3399-xiaobao-nas-v1.dts target/linux/rockchip/armv8/files/arch/arm64/boot/dts/rockchip/rk3399-xiaobao-nas-v1.dts
 
 
 cp -f $GITHUB_WORKSPACE/configfiles/rk3399.dtsi package/boot/uboot-rockchip/src/arch/arm/dts/rk3399.dtsi
 cp -f $GITHUB_WORKSPACE/configfiles/rk3399-opp.dtsi package/boot/uboot-rockchip/src/arch/arm/dts/rk3399-opp.dtsi
 cp -f $GITHUB_WORKSPACE/configfiles/rk3399-r08.dts package/boot/uboot-rockchip/src/arch/arm/dts/rk3399-r08.dts
 cp -f $GITHUB_WORKSPACE/configfiles/rk3399-tpm312.dts package/boot/uboot-rockchip/src/arch/arm/dts/rk3399-tpm312.dts
-cp -f $GITHUB_WORKSPACE/configfiles/rk3399-xiaobao-nas-v1.dts package/boot/uboot-rockchip/src/arch/arm/dts/rk3399-xiaobao-nas-v1.dts
 
 
 
@@ -132,6 +117,7 @@ cp -f $GITHUB_WORKSPACE/configfiles/rk3399-xiaobao-nas-v1.dts package/boot/uboot
 # cp -f $GITHUB_WORKSPACE/configfiles/opwifi package/base-files/files/etc/init.d/opwifi
 # chmod 755 package/base-files/files/etc/init.d/opwifi
 sed -i "s/wireless.radio\${devidx}.disabled=1/wireless.radio\${devidx}.disabled=0/g" package/kernel/mac80211/files/lib/wifi/mac80211.sh
+
 
 
 #集成CPU性能跑分脚本
