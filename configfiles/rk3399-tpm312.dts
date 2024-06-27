@@ -141,6 +141,19 @@ GPIOs 128-159, platform/pinctrl, gpio4:
 		regulator-max-microvolt = <3300000>;
 	};
 
+	leds {
+		compatible = "gpio-leds";
+		pinctrl-names = "default";
+		pinctrl-0 = <&leds_pins>;
+		power_led: led-0 {
+			gpios = <&gpio1 RK_PC7 GPIO_ACTIVE_HIGH>;
+			label = "red:power";
+			default-state = "on";
+			linux,default-trigger = "default-on";
+			status = "okay";
+		};
+	};
+
 	vcc5v0_sys: vcc5v0-sys {
 		compatible = "regulator-fixed";
 		regulator-name = "vcc5v0_sys";
@@ -212,25 +225,6 @@ GPIOs 128-159, platform/pinctrl, gpio4:
 
 		simple-audio-card,codec {
 			sound-dai = <&hdmi>;
-		};
-	};
-
-	leds {
-		compatible = "gpio-leds";
-		power5v-led {
-			gpios = <&gpio0 23 GPIO_ACTIVE_HIGH>;
-			default-state = "on";
-			label = "power_5v_run";
-		};
-		pwr_led: pwr-led {
-			gpios = <&gpio1 RK_PC7 GPIO_ACTIVE_HIGH>;
-			pinctrl-names = "default";
-			pinctrl-0 = <&pwr_led_enable_h>;
-			default-state = "on";
-			label = "pwr-led";
-			retain-state-suspended;
-			linux,default-trigger = "default-on";
-			status = "okay";
 		};
 	};
 
@@ -868,7 +862,7 @@ GPIOs 128-159, platform/pinctrl, gpio4:
 		};
 	};
 	leds {
-		pwr_led_enable_h: pwr-led-enable-h {
+		leds_pins: leds-pins {
 			rockchip,pins = <1 RK_PC7 RK_FUNC_GPIO &pcfg_pull_up>;
 		};
 	};
